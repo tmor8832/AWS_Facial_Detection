@@ -1,0 +1,73 @@
+#Lambda function within AWS which is triggered by S3 put. Will check if known face is within collection and push results to DynamoDB to be used elsewhere in the architecture.
+#Trigger is S3 put, lambda written in Python by Tom M. 
+
+#Import the relevant libs
+import json
+import boto3
+
+#create the lambda handler, triggered by event in S3 bucket when something is uploaded to t5accessimages....
+def lambda_handler(event, context):
+    bucket='t5accessimages'     #variables which need to be changed to relevant folders....
+    collectionId='T5-facecollection'
+    fileName= event["Records"][0]["s3"]["object"]["key"]
+    datetime = fileName[0:16] #slice the datetime from the file format
+
+    threshold = 95 #how sure do you want it to be of seeing a face?
+    maxFaces=2
+    dynamodb = boto3.resource('dynamodb', region_name='eu-west-2') #set right regions etc
+    client=boto3.client('rekognition') #associate with rekognition service, all of this is copied from AWS example code.... https://docs.aws.amazon.com/rekognition/latest/dg/search-face-with-image-procedure.html
+    
+
+  
+    response=client.search_faces_by_image(CollectionId=collectionId,
+                                Image={'S3Object':{'Bucket':bucket,'Name':fileName}},
+                                FaceMatchThreshold=threshold,
+                                MaxFaces=maxFaces)
+
+                                
+    faceMatches=response['FaceMatches']
+    print ('Matching faces')
+    SN = [] #init some empty lists to append to
+    Names = []
+    hasAccess = False #by default has access is false
+    for match in faceMatches:
+            print ('FaceId:' + match['Face']['FaceId']) #print out some info for debugging etc
+            print ('Similarity: ' + "{:.2f}".format(match['Similarity']) + "%")
+            sn = match['Face']['ExternalImageId'][:-4] #Get the service number from their match database
+            SN.append(sn) #append it to the list
+            table = dynamodb.Table('personnel') #read from personnel table set up in dynamo DB
+            response = table.get_item(Key={"service number": str(sn)}) #now search another table based on this value. Linking the two DBs.
+            Sur = response['Item']['Surname'] #get the surname from the dictionary
+            Names.append(str(response))
+            pid = (response['Item']['PID']) #get their pid from the response dict
+            table2 = dynamodb.Table('Roles') #now link to second table to get their building access info
+            access = table2.get_item(Key={"PID": pid})
+            for item in access['Item']['Areas']: #loop through each of the buildings they have access to
+                if item== 1: #if they have access to bldg 1 great, break as thats the building we want.
+                   hasAccess =True
+                   break
+                else:
+                    hasAccess = False #if they don't have building 1 access, set this to false.
+
+            table = dynamodb.Table('Log') #set up for writing to the log database...
+            
+            table.put_item( #put the variables obtained as a new entry into the log db
+                Item={
+                    'ID stamp': datetime + '-1',
+                    'Access Granted': hasAccess,
+                    'DateTime': str(datetime),
+                    'Service Number': str(sn),
+                    'Building Number': '1',
+                    'Surname': Sur,
+    }
+)
+        
+    return { 
+            'Service_Number':SN,
+            'statusCode': 200,
+            'json':Names,
+            'Areas Allowed': access
+        }
+    
+
+

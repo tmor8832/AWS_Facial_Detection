@@ -1,0 +1,7 @@
+opencv-python==4.5.5.64
+scikit-image==0.19.3
+schedule
+pika
+bson
+PySimpleGUI
+PIL

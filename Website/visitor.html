@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- choosing the class and language of the page-->
+<html lang="en">
+<head>
+    <!-- uncode base encoding-->
+    <meta charset="utf-8"> 
+    <!--to act as responsive page according to device pixels-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Building Access Control</title>
+    <!-- this will appear after the title as a description-->  
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="style1.css" rel="stylesheet">
+    <script src="./test.js"></script>   <!--Script JS-->
+</head>
+ 
+<body>
+    <header>
+        <div class="header">    
+            BUILDING ACCESS CONTROL     
+        </div>
+    
+    
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="index.html">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="visitor.html">ADD VISITOR</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="logs.html">LOGS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">PERSONNEL</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="ENTER SERVICE NO." aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>  
+
+    
+    <div class="container-fluid">    
+      <form id="visitor-entry" name="visitor" onsubmit="details()">
+        <div class="row mb-3">
+          <label for="inputsn" class="col-sm-2 col-form-label">Service Number</label>
+          <div class="col-sm-10">
+            <input value="565774" type="number" class="form-control" name="serviceno" id="inputsn">
+          </div><br>
+        </div>
+        <div class="row mb-3">
+          <label for="inputrank" class="col-sm-2 col-form-label">Rank</label>
+          <div class="col-sm-10">
+            <input value="Col" type="text" class="form-control" name="rank" id="inputrank">
+          </div><br><br>
+          <div class="row mb-3">
+            <label for="firstname" class="col-sm-2 col-form-label">Firstname</label>
+            <div class="col-sm-10">
+              <input value="Dave" type="text" class="form-control" name="firstname" id="firstname">
+            </div><br><br>
+            <div class="row mb-3">
+              <label for="Lastname" class="col-sm-2 col-form-label">Lastname</label>
+              <div class="col-sm-10">
+                <input value="Smith" type="text" class="form-control" name="lastname" id="Lastname">
+              </div><br><br>
+              <div class="row mb-3">
+                <label for="pid" class="col-sm-2 col-form-label">PID</label>
+                <div class="col-sm-10">
+                  <input value="6173" type="number" class="form-control" name="pid" id="pid">
+                </div>
+        </div>        
+        <input type="button" onclick="details()" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

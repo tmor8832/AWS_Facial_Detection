@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- choosing the class and language of the page-->
+<html lang="en">
+<head>
+    <!-- uncode base encoding-->
+    <meta charset="utf-8"> 
+    <!--to act as responsive page according to device pixels-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Building Access Control</title>
+    <!-- this will appear after the title as a description-->  
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="style1.css" rel="stylesheet">
+    <script src="./test.js"></script>   <!--Script JS-->
+</head>
+ 
+<body>
+  <header>
+    <div class="header">
+        BUILDING ACCESS CONTROL     
+    </div>
+  
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.html">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="visitor.html">ADD VISITOR</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="logs.html">LOGS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">PERSONNEL</a>
+              </li>
+            </ul>
+            <form id="initial-search" class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="ENTER SERVICE NO." aria-label="Search">
+              <input type="button" onclick="find()" value="Search">
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid">
+
+    <form id="logs-entry" name="logs" onsubmit="dislpaylogs()">
+        <label for="entrydate">Date of Entry:</label><br>
+        <input type="date" id="entrydate" name="entrydate"><br>
+        <label for="entrytime">Time of entry:</label><br>
+        <input type="time" id="entrytime" name="entrytime"><br><br>
+        <label for="exitdate">Date of Exit:</label><br>
+        <input type="date" id="exitdate" name="exitdate"><br>
+        <label for="exittime">Time of exit:</label><br>
+        <input type="time" id="exittime" name="exittime"><br><br>
+        <input type="button" onclick="displaylogs()" value="Search">
+      </form> 
+    </div>
+    </body>
+    
+
+    </html>

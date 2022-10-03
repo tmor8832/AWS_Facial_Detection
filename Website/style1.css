@@ -1,0 +1,37 @@
+/*
+Theme Name: wp2
+Author: Man Kumar Gurung
+Description: Active Fitness Centre
+Version:1.0
+Text domain: mytheme
+*/
+/*--Navigation Section Start--*/
+
+.header {
+    height: 100px;
+    text-indent: 100px;    
+    text-align: center;
+    color:white;
+    font-size: 50px;
+    font-display:arial;
+    font-weight: bold;
+    background-color: turquoise;
+  }
+  .titleimage {
+    opacity: 0.2;
+  }
+body {
+  display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+}
+
+.first,.second {
+  width: 600px;
+  height: 400px;
+  }
+  .second {
+    background-color:grey;
+  }
+  
